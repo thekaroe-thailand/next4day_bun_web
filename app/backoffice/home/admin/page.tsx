@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import Swal from "sweetalert2";
 import Modal from "../components/Modal";
 import { ErrorInterface } from "@/app/interface/ErrorInterface";
-import { AdminInteface } from "@/app/interface/AdminInterface";
+//import { AdminInteface } from "@/app/interface/AdminInterface";
 
 export default function Admin() {
     const [admins, setAdmins] = useState([]);
@@ -33,6 +33,7 @@ export default function Admin() {
 
             if (response.status == 200) {
                 setAdmins(response.data);
+                console.log(admins);
             }
         } catch (err: unknown) {
             const error = err as ErrorInterface;
@@ -105,6 +106,7 @@ export default function Admin() {
         }
     }
 
+    /*
     const handleEdit = (admin: AdminInteface) => {
         setId(admin.id);
         setName(admin.name);
@@ -148,7 +150,7 @@ export default function Admin() {
             }
         }
     }
-
+    */
     return (
         <>
             <div className="container">
@@ -171,23 +173,7 @@ export default function Admin() {
                         </tr>
                     </thead>
                     <tbody>
-                        {admins.map((admin: AdminInteface) => (
-                            <tr key={admin.id}>
-                                <td>{admin.name}</td>
-                                <td>{admin.username}</td>
-                                <td>{admin.level}</td>
-                                <td>
-                                    <div className="flex gap-1 justify-center">
-                                        <button className="btn-edit" onClick={() => handleEdit(admin)}>
-                                            <i className="fa fa-edit"></i>
-                                        </button>
-                                        <button className="btn-delete" onClick={() => handleDelete(admin)}>
-                                            <i className="fa fa-times"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
+
                     </tbody>
                 </table>
             </div>
