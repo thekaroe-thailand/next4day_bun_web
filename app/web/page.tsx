@@ -1,4 +1,3 @@
-// app/web/page.tsx
 'use client'
 
 import { useState, useEffect } from "react";
@@ -58,9 +57,7 @@ export default function Home() {
             const response = await axios.get(url);
 
             if (response.status === 200) {
-                if (Array.isArray(response.data)) {
-                    setBooks(response.data);
-                }
+                setBooks(response.data);
             }
         } catch (err: unknown) {
             Swal.fire({
@@ -131,7 +128,7 @@ export default function Home() {
             </div>
             <h1 className="text-2xl font-semibold">หนังสือในร้านเรา</h1>
             <div className="grid grid-cols-3 md:grid-cols-3 xl:grid-cols-6 lg:grid-cols-5 gap-2">
-                {books.map((book) => (
+                {books.map((book: BookInterface) => (
                     <div key={book.id} className="bg-white border border-gray-400 rounded-md">
                         <div>
                             {book.image &&
