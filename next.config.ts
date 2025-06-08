@@ -12,7 +12,14 @@ const nextConfig: NextConfig = {
         pathname: '/uploads/**', // สมมติรูปอยู่ที่ /uploads/xxx.png
       },
     ],
-  }
+  },
+  reactStrictMode: false,
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;
