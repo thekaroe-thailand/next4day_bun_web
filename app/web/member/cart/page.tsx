@@ -104,7 +104,7 @@ export default function Cart() {
             })
         }
     }
-
+    /*
     const handleDelete = async (id: string) => {
         try {
             const cart = carts.find(item => item.id === id);
@@ -132,7 +132,9 @@ export default function Cart() {
             })
         }
     }
+    */
 
+    /*
     const upQty = async (id: string) => {
         try {
             const url = Config.apiUrl + '/api/cart/upQty/' + id;
@@ -175,6 +177,7 @@ export default function Cart() {
             }
         }
     }
+        */
 
     const uiCart = () => {
         return (
