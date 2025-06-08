@@ -47,7 +47,6 @@ export default function History() {
                 }
 
                 setOrders(rows);
-                console.log(orders);
             }
         } catch (err: unknown) {
             const error = err as ErrorInterface;
@@ -65,6 +64,67 @@ export default function History() {
                 <i className="fa fa-file-alt mr-2"></i>
                 ติดตามสินค้า
             </div>
+
+            {orders.map((order) => (
+                <div key={order.id} className="border mb-5 p-3 rounded-lg shadow-md bg-white">
+                    <div className="flex">
+                        <div className="w-[150px]">วันที่สั่งซื้อ</div>
+                        <div>{new Date(order.createdAt).toLocaleDateString()}</div>
+                    </div>
+                    <div className="flex">
+                        <div className="w-[150px]">ชื่อผู้รับสินค้า</div>
+                        <div>{order.customerName}</div>
+                    </div>
+                    <div className="flex">
+                        <div className="w-[150px]">ที่อยู่ในการจัดส่ง</div>
+                        <div>{order.customerAddress}</div>
+                    </div>
+                    <div className="flex">
+                        <div className="w-[150px]">เบอร์โทร</div>
+                        <div>{order.customerPhone}</div>
+                    </div>
+                    <div className="flex">
+                        <div className="w-[150px]">รหัสติดตามพัสดุ</div>
+                        <div>{order.trackCode} {order.express}</div>
+                    </div>
+
+                    <div className="font-semibold mt-3">
+                        <i className="fa fa-file mr-2"></i>
+                        รายการสินค้า
+                    </div>
+
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th>รหัสสินค้า</th>
+                                <th>ชื่อสินค้า</th>
+                                <th className="text-right">ราคา</th>
+                                <th className="text-right">จำนวน</th>
+                                <th className="text-right">ยอดรวม</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {order.OrderDetail.map((orderDetail) =>
+                                <tr key={orderDetail.id}>
+                                    <td>{orderDetail.Book.isbn}</td>
+                                    <td>{orderDetail.Book.name}</td>
+                                    <td className="text-right">{orderDetail.price.toLocaleString()}</td>
+                                    <td className="text-right">{orderDetail.qty}</td>
+                                    <td className="text-right">{orderDetail.amount.toLocaleString()}</td>
+                                </tr>
+                            )}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colSpan={4} className="p-3"></td>
+                                <td className="text-right p-3 bg-gray-400 rounded-br-xl rounded-bl-xl">
+                                    {order.sum.toLocaleString()}
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            ))}
         </>
     )
 }

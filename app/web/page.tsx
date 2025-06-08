@@ -1,3 +1,4 @@
+// app/web/page.tsx
 'use client'
 
 import { useState, useEffect } from "react";
@@ -8,7 +9,7 @@ import { BookInterface } from "../interface/BookInterface";
 import { CartInterface } from "../interface/CartInterface";
 import Link from "next/link";
 import { ErrorInterface } from "../interface/ErrorInterface";
-//import Image from "next/image";
+import Image from "next/image";
 
 export default function Home() {
     const [books, setBooks] = useState<BookInterface[]>([]);
@@ -58,7 +59,6 @@ export default function Home() {
 
             if (response.status === 200) {
                 setBooks(response.data);
-                console.log(books);
             }
         } catch (err: unknown) {
             Swal.fire({
@@ -95,28 +95,27 @@ export default function Home() {
             })
         }
     }
-    /*
-        const handleAddToCart = async (bookId: string) => {
-            try {
-                const url = Config.apiUrl + '/api/cart/add'
-                const payload = {
-                    memberId: memberId,
-                    bookId: bookId
-                }
-                const response = await axios.post(url, payload);
-    
-                if (response.status == 200) {
-                    fetchDataCart();
-                }
-            } catch (err: unknown) {
-                Swal.fire({
-                    title: 'error',
-                    text: (err as ErrorInterface).message,
-                    icon: 'error'
-                })
+
+    const handleAddToCart = async (bookId: string) => {
+        try {
+            const url = Config.apiUrl + '/api/cart/add'
+            const payload = {
+                memberId: memberId,
+                bookId: bookId
             }
+            const response = await axios.post(url, payload);
+
+            if (response.status == 200) {
+                fetchDataCart();
+            }
+        } catch (err: unknown) {
+            Swal.fire({
+                title: 'error',
+                text: (err as ErrorInterface).message,
+                icon: 'error'
+            })
         }
-        */
+    }
 
     return (
         <div className="p-3">
@@ -130,6 +129,39 @@ export default function Home() {
             </div>
             <h1 className="text-2xl font-semibold">หนังสือในร้านเรา</h1>
             <div className="grid grid-cols-3 md:grid-cols-3 xl:grid-cols-6 lg:grid-cols-5 gap-2">
+                {books !== undefined && books.length > 0 &&
+                    books?.map((book) => (
+                        <div key={book.id} className="bg-white border border-gray-400 rounded-md">
+                            <div>
+                                {book.image &&
+                                    <Image
+                                        width={200}
+                                        height={150}
+                                        style={{ width: '100%', height: '100%' }}
+                                        alt=""
+                                        src={Config.apiUrl + '/public/uploads/' + book?.image}
+                                        className="rounded-md h-full"
+                                    />
+                                }
+                            </div>
+                            <div className="p-4 text-xl text-indigo-600">{book.name}</div>
+                            <div className="flex bg-gray-300 p-2 justify-between">
+                                <div className="font-bold text-xl">
+                                    {book.price.toLocaleString()} บาท
+                                </div>
+
+                                {token &&
+                                    <button
+                                        onClick={() => handleAddToCart(book?.id)}
+                                        className="bg-gray-600 cursor-pointer px-4 py-2 rounded-2xl text-white">
+                                        <i className="fa fa-shopping-cart mr-3"></i>
+                                        หยิบลงตะกร้า
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                    ))
+                }
             </div>
         </div>
     );
