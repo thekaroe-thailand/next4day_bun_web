@@ -20,7 +20,7 @@ export default function Admin() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [level, setLevel] = useState('');
-    const [id, setId] = useState('');
+    const [id] = useState('');
 
     useEffect(() => {
         fetchData();

@@ -31,6 +31,7 @@ export default function Book() {
 
             if (response.status == 200) {
                 setBooks(response.data);
+                console.log(books);
             }
         } catch (err: unknown) {
             Swal.fire({
@@ -92,6 +93,7 @@ export default function Book() {
         }
     }
 
+    /*
     const handleEdit = (book: BookInterface) => {
         setId(book.id);
         setIsbn(book.isbn ?? '');
@@ -128,6 +130,7 @@ export default function Book() {
             }
         }
     }
+    */
 
     const chooseFile = (files: unknown) => {
         const chooseFiles: FileList = files as FileList;
@@ -162,33 +165,7 @@ export default function Book() {
                         </tr>
                     </thead>
                     <tbody>
-                        {books.map((book: BookInterface) => (
-                            <tr key={book.id}>
-                                <td className="text-center">
-                                    {book.image != null ?
-                                        <Image alt='' src={Config.apiUrl + '/public/uploads/' + book.image}
-                                            className="w-[150px] rounded-xl shadow-md" width={150} height={150} />
-                                        : <i className="fa fa-image text-6xl text-gray-500"></i>
-                                    }
-                                </td>
-                                <td>{book.isbn}</td>
-                                <td>{book.name}</td>
-                                <td className="text-right">{book.price.toLocaleString()}</td>
-                                <td>{book.description}</td>
-                                <td>
-                                    <div className="flex gap-1 items-center">
-                                        <button className="btn-edit"
-                                            onClick={() => handleEdit(book)}
-                                        >
-                                            <i className="fa fa-edit"></i>
-                                        </button>
-                                        <button className="btn-delete" onClick={() => handleDelete(book)}>
-                                            <i className="fa fa-times"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
+
                     </tbody>
                 </table>
             </div>
