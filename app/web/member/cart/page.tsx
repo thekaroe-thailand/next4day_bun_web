@@ -192,33 +192,7 @@ export default function Cart() {
                         </tr>
                     </thead>
                     <tbody>
-                        {carts && carts.map((cart: CartInterface) => (
-                            <tr key={cart.id}>
-                                <td><Image alt="" src={Config.apiUrl + '/public/uploads/' + cart.book.image} /></td>
-                                <td>{cart.book.name}</td>
-                                <td className="text-right">{cart.book.price.toLocaleString()}</td>
-                                <td className="text-right">
-                                    <div className="flex gap-2 items-center justify-center">
-                                        <button className="btn-minus"
-                                            onClick={() => downQty(cart.id)}>
-                                            <i className="fa fa-minus"></i>
-                                        </button>
-                                        {cart.qty}
-                                        <button className="btn-plus"
-                                            onClick={() => upQty(cart.id)}>
-                                            <i className="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                                <td className="text-right">{(cart.qty * cart.book.price).toLocaleString()}</td>
-                                <td>
-                                    <button onClick={() => handleDelete(cart.id)}
-                                        className="btn-delete">
-                                        <i className="fa fa-times"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
+
                     </tbody>
                 </table>
 
