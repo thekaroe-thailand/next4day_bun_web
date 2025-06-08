@@ -1,0 +1,254 @@
+@import "tailwindcss";
+
+* {
+  font-family: 'Prompt';
+}
+
+.signin {
+  @apply border border-gray-300 mx-auto
+    flex flex-col space-y-3 bg-white p-4
+    rounded-lg shadow-lg
+}
+.signin input {
+  @apply border border-gray-300 rounded-md
+    p-2
+}
+.signin h1 {
+  @apply text-xl font-semibold
+}
+.signin button {
+  @apply bg-purple-600 rounded-md text-white  
+    px-4 py-2 shadow-lg
+}
+body {
+  @apply bg-gray-100
+}
+.signin-block {
+  @apply flex items-center justify-center h-screen
+}
+
+/** sidebar **/
+.sidebar {
+  @apply bg-indigo-400 h-screen w-64
+}
+
+.sidebar .header {
+  @apply flex flex-col space-y-5 bg-gray-800
+    text-white pb-5
+}
+
+.sidebar .header h1 {
+  @apply text-3xl text-center mt-5 font-bold
+}
+
+.sidebar .header p {
+  @apply text-center text-xl
+}
+
+.sidebar .body {
+  @apply flex flex-col space-y-4 h-screen
+  text-white pt-3
+  bg-gray-700
+}
+
+.sidebar .body a {
+  @apply ps-3
+}
+
+.sidebar .body a i {
+  @apply mr-2 w-[22px]
+}
+
+.sidebar .header .button {
+  @apply flex gap-3 text-sm justify-center
+}
+
+.sidebar .header .button a {
+  @apply text-blue-300 border border-blue-300 px-4  
+    py-2 rounded-lg hover:bg-blue-300 hover:text-gray-800
+}
+
+.sidebar .header .button button {
+  @apply text-red-300 border-red-300 border px-4 py-2
+    rounded-lg hover:bg-red-300 hover:text-gray-800
+    cursor-pointer
+}
+
+.container {
+  @apply p-4 bg-gray-400 m-5 rounded-2xl
+    flex flex-col space-y-3
+}
+
+.container .title {
+  @apply font-semibold text-2xl mb-3;
+}
+
+.container input {
+  @apply w-full border border-gray-500 p-3
+    rounded-xl bg-gray-200
+}
+
+.container button {
+  @apply bg-indigo-600 px-5 py-2 text-white
+    rounded-xl shadow-lg
+}
+
+.container table thead th {
+  @apply bg-gray-600 text-white font-medium py-2 text-left px-2
+}
+
+.container table tbody td {
+  @apply bg-gray-300 px-2 py-2 border border-b-gray-400 border-t-0 border-l-0 border-r-0
+}
+
+.container table tbody tr:last-child td:first-child {
+  @apply rounded-bl-2xl border-0
+}
+
+.container table tbody tr:last-child td:last-child {
+  @apply rounded-br-2xl border-0
+}
+
+.container table thead tr th:first-child {
+  @apply rounded-tl-2xl
+}
+
+.container table thead tr th:last-child {
+  @apply rounded-tr-2xl
+}
+
+.container .btn-edit {
+  @apply bg-blue-500 rounded-md px-4 py-2
+}
+
+.container .btn-delete {
+  @apply bg-red-500 rounded-md px-4 py-2
+}
+
+/** modal **/
+.modal {
+  @apply fixed inset-0 z-50 flex items-center justify-center;
+  backdrop-filter: blur(3px);
+  @apply bg-black/30;
+}
+
+.modal-container {
+  @apply w-full bg-gray-900/90 rounded-xl shadow-2xl border border-gray-700/50 backdrop-blur-sm ring-1 ring-white/10;
+}
+
+.modal-header {
+  @apply flex items-center justify-between p-4 border-b;
+}
+
+.modal-title {
+  @apply text-lg font-semibold text-gray-400;
+}
+
+.modal-close {
+  @apply text-gray-400 hover:text-gray-600 transition-colors;
+}
+
+.modal-body {
+  @apply p-4;
+}
+
+.modal-body label {
+  @apply block mt-4 text-sm font-medium text-gray-400;
+}
+
+.modal-body input, select {
+  @apply w-full bg-gray-700 border border-gray-700/50 rounded-md p-2 text-gray-200;
+}
+
+.modal-footer {
+  @apply flex justify-end gap-2 p-4 border-t;
+}
+
+.modal-btn {
+  @apply px-4 py-2 rounded-md font-medium transition-colors;
+}
+
+.modal-btn-cancel {
+  @apply bg-gradient-to-b from-gray-700 to-gray-900 text-gray-300 hover:from-gray-800 hover:to-gray-950 
+    border border-gray-600 shadow-lg shadow-gray-500/20 transition-all duration-200 ease-in-out;
+}
+
+.modal-btn-submit {
+    @apply bg-gradient-to-b from-emerald-600 to-emerald-800 text-gray-100 hover:from-emerald-700 
+      hover:to-emerald-900 shadow-lg shadow-emerald-500/20 transition-all duration-200 ease-in-out;
+}
+
+.container button.modal-btn-order-cancel {
+  @apply border border-red-400 bg-gray-800 text-red-300 cursor-pointer hover:bg-red-400 hover:text-white
+}
+
+.container button.modal-btn-get-money {
+  @apply border border-green-400 bg-gray-800 text-green-400 cursor-pointer hover:bg-green-400 hover:text-gray-900
+}
+
+.container button.modal-btn-send {
+  @apply border border-blue-400 bg-gray-800 text-blue-400 cursor-pointer hover:bg-blue-400 hover:text-gray-900
+}
+
+.front label {
+  @apply block w-full
+}
+
+.front form {
+  @apply flex flex-col gap-4 bg-white p-4
+    border border-gray-300 shadow-md
+    rounded-lg mt-2
+}
+
+.front form input {
+  @apply border border-gray-400 p-2 rounded-lg
+    bg-white shadow-md
+}
+
+.front form button {
+  @apply bg-indigo-600 text-white px-4 py-2
+    rounded-lg shadow-lg
+}
+
+.table {
+  @apply w-full mt-2
+}
+
+.table thead th {
+  @apply bg-gray-800 text-white p-3
+}
+
+.table tbody td {
+  @apply bg-gray-300 p-2 border border-l-0 border-r-0 border-b-gray-100
+}
+
+.table tbody td img {
+  @apply rounded-lg m-1
+}
+
+.table tbody td .btn-plus {
+  @apply bg-green-700 text-white px-3 py-1 rounded-md
+}
+
+.table tbody td .btn-minus {
+  @apply bg-gray-700 text-white px-3 py-1 rounded-md
+}
+
+.table tbody td .btn-delete {
+  @apply bg-red-600 text-white px-3 py-1 rounded-md
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
