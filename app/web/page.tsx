@@ -11,7 +11,7 @@ import { ErrorInterface } from "../interface/ErrorInterface";
 //import Image from "next/image";
 
 export default function Home() {
-    const [books, setBooks] = useState<BookInterface[]>([]);
+    const [setBooks] = useState<BookInterface[]>([]);
     const [token, setToken] = useState('');
     const [carts, setCarts] = useState<CartInterface[]>([]);
     const [memberId, setMemberId] = useState('')
