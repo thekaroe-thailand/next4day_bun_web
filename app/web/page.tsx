@@ -11,7 +11,7 @@ import { ErrorInterface } from "../interface/ErrorInterface";
 //import Image from "next/image";
 
 export default function Home() {
-    const [setBooks] = useState<BookInterface[]>([]);
+    const [books, setBooks] = useState<BookInterface[]>([]);
     const [token, setToken] = useState('');
     const [carts, setCarts] = useState<CartInterface[]>([]);
     const [memberId, setMemberId] = useState('')
@@ -58,6 +58,7 @@ export default function Home() {
 
             if (response.status === 200) {
                 setBooks(response.data);
+                console.log(books);
             }
         } catch (err: unknown) {
             Swal.fire({
