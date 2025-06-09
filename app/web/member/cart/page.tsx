@@ -194,7 +194,7 @@ export default function Cart() {
                     <tbody>
                         {carts && carts.map((cart: CartInterface) => (
                             <tr key={cart.id}>
-                                <td><Image alt="" src={Config.apiUrl + '/public/uploads/' + cart.book.image} /></td>
+                                <td><Image width={150} height={150} alt="" src={Config.apiUrl + '/public/uploads/' + cart.book.image} /></td>
                                 <td>{cart.book.name}</td>
                                 <td className="text-right">{cart.book.price.toLocaleString()}</td>
                                 <td className="text-right">
@@ -300,7 +300,7 @@ export default function Cart() {
                 <div className="text-xl font-bold">การชำระเงิน</div>
                 <div className="text-center mt-2">
                     {qrImage && (
-                        <Image alt="" src={qrImage} className="w-full border rounded-xl shadow-lg" />
+                        <Image width={150} height={150} alt="" src={qrImage} className="w-full border rounded-xl shadow-lg" />
                     )}
                 </div>
                 <form onSubmit={(e) => handleSave(e)}>
