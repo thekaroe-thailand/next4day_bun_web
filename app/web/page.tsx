@@ -30,18 +30,22 @@ export default function Home() {
     }, [memberId])
 
     const readToken = async () => {
-        const token = localStorage.getItem(Config.tokenMember) ?? ''
-        setToken(token);
+        const token = localStorage.getItem(Config.tokenMember)
 
         try {
             const url = Config.apiUrl + '/api/member/info'
-            const headers = {
-                'Authorization': 'Bearer ' + token
-            }
-            const response = await axios.get(url, { headers })
 
-            if (response.status == 200) {
-                setMemberId(response.data.id)
+            if (token !== null) {
+                setToken(token);
+
+                const headers = {
+                    'Authorization': 'Bearer ' + token
+                }
+                const response = await axios.get(url, { headers })
+
+                if (response.status == 200) {
+                    setMemberId(response.data.id)
+                }
             }
         } catch (err: unknown) {
             Swal.fire({

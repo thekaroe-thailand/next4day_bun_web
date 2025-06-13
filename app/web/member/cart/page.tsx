@@ -71,13 +71,17 @@ export default function Cart() {
     const fetchDataMember = async () => {
         try {
             const url = Config.apiUrl + '/api/member/info'
-            const headers = {
-                'Authorization': 'Bearer ' + localStorage.getItem(Config.tokenMember)
-            }
-            const response = await axios.get(url, { headers })
+            const token = localStorage.getItem(Config.tokenMember);
 
-            if (response.status == 200) {
-                setMemberId(response.data.id)
+            if (token !== undefined) {
+                const headers = {
+                    'Authorization': 'Bearer ' + token
+                }
+                const response = await axios.get(url, { headers })
+
+                if (response.status == 200) {
+                    setMemberId(response.data.id)
+                }
             }
         } catch (err: unknown) {
             Swal.fire({
