@@ -1,3 +1,5 @@
+import { ImportToStockInterface } from "./ImportToStockInterface"
+
 export interface BookInterface {
     id: string,
     name: string,
@@ -6,4 +8,6 @@ export interface BookInterface {
     isbn: string
     createdAt: Date
     image: File | string
+    ImportToStock: ImportToStockInterface[]
+    sumImportToStock: number
 }

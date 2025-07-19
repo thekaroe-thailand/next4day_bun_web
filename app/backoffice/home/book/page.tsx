@@ -8,6 +8,7 @@ import Swal from "sweetalert2"
 import Modal from "../components/Modal"
 import { ErrorInterface } from "@/app/interface/ErrorInterface"
 import Image from "next/image"
+import { ImportToStockInterface } from "@/app/interface/ImportToStockInterface"
 
 export default function Book() {
     const [books, setBooks] = useState<BookInterface[]>([])
@@ -22,6 +23,8 @@ export default function Book() {
     const [isShowModalImportToStock, setIsShowModalImportToStock] = useState(false);
     const [bookForImportToStock, setBookForImportToStock] = useState<BookInterface>();
     const [qtyForImportToStock, setQtyForImportToStock] = useState(0);
+    const [isShowModalHistoryImportToStock, setIsShowModalHistoryImportToStock] = useState(false);
+    const [bookForHistoryImportToStock, setBookForHistoryImportToStock] = useState<BookInterface>();
 
     useEffect(() => {
         fetchData();
@@ -33,6 +36,10 @@ export default function Book() {
             const response = await axios.get(url);
 
             if (response.status == 200) {
+                response.data.forEach((book: BookInterface) => {
+                    book.sumImportToStock = book.ImportToStock.reduce((sum, importToStock) => sum + importToStock.qty, 0);
+                });
+
                 setBooks(response.data);
             }
         } catch (err: unknown) {
@@ -178,6 +185,15 @@ export default function Book() {
         }
     }
 
+    const openModalHistoryImportToStock = (book: BookInterface) => {
+        setBookForHistoryImportToStock(book);
+        setIsShowModalHistoryImportToStock(true);
+    }
+
+    const closeModalHistoryImportToStock = () => {
+        setIsShowModalHistoryImportToStock(false);
+    }
+
     return (
         <>
             <div className="container">
@@ -198,6 +214,7 @@ export default function Book() {
                             <th>ชื่อ</th>
                             <th style={{ textAlign: 'right' }}>ราคา</th>
                             <th>รายละเอียด</th>
+                            <th style={{ textAlign: 'right' }}>จำนวนรับเข้าสต๊อค</th>
                             <th className="w-[200px]">action</th>
                         </tr>
                     </thead>
@@ -215,6 +232,12 @@ export default function Book() {
                                 <td>{book.name}</td>
                                 <td className="text-right">{book.price.toLocaleString()}</td>
                                 <td>{book.description}</td>
+                                <td className="text-right">
+                                    {book.sumImportToStock < 10 && <span className="text-red-500 mr-3">สินค้าใกล้หมด</span>}
+                                    <a href="#" onClick={() => openModalHistoryImportToStock(book)}>
+                                        {book.sumImportToStock.toLocaleString()}
+                                    </a>
+                                </td>
                                 <td>
                                     <div className="flex gap-1 items-center">
                                         <button className="btn-edit" onClick={() => openModalImportToStock(book)}>
@@ -298,6 +321,31 @@ export default function Book() {
                             Save
                         </button>
                     </div>
+                </Modal>
+                : null
+            }
+
+            {isShowModalHistoryImportToStock ?
+                <Modal onClose={closeModalHistoryImportToStock} title="ประวัติการรับสินค้าเข้าสต๊อค">
+                    <label>หนังสือ</label>
+                    <input value={bookForHistoryImportToStock?.name} disabled />
+
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th>วันที่</th>
+                                <th style={{ textAlign: 'right' }}>จำนวน</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {bookForHistoryImportToStock?.ImportToStock.map((importToStock: ImportToStockInterface) => (
+                                <tr key={importToStock.id}>
+                                    <td>{new Date(importToStock.createdAt).toLocaleDateString()}</td>
+                                    <td className="text-right">{importToStock.qty.toLocaleString()}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </Modal>
                 : null
             }
