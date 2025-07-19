@@ -19,6 +19,9 @@ export default function Book() {
     const [showModal, setShowModal] = useState(false);
     const [image, setImage] = useState<File | null>();
     const [imageUrl, setImageUrl] = useState('');
+    const [isShowModalImportToStock, setIsShowModalImportToStock] = useState(false);
+    const [bookForImportToStock, setBookForImportToStock] = useState<BookInterface>();
+    const [qtyForImportToStock, setQtyForImportToStock] = useState(0);
 
     useEffect(() => {
         fetchData();
@@ -138,6 +141,43 @@ export default function Book() {
         }
     }
 
+    const openModalImportToStock = (book: BookInterface) => {
+        setBookForImportToStock(book);
+        setIsShowModalImportToStock(true);
+    }
+
+    const closeModalImportToStock = () => {
+        setIsShowModalImportToStock(false);
+    }
+
+    const handleImportToStock = async () => {
+        try {
+            const url = Config.apiUrl + '/api/book/importToStock';
+            const payload = {
+                bookId: bookForImportToStock?.id,
+                qty: qtyForImportToStock
+            }
+            const response = await axios.post(url, payload);
+
+            if (response.status == 200) {
+                Swal.fire({
+                    title: 'รับสินค้าเข้าสต๊อค',
+                    text: 'รับสินค้าเข้าสต๊อคสำเร็จ',
+                    icon: 'success',
+                    timer: 1000
+                })
+                fetchData();
+                closeModalImportToStock();
+            }
+        } catch (err: unknown) {
+            Swal.fire({
+                title: 'error',
+                text: (err as ErrorInterface).message,
+                icon: 'error'
+            })
+        }
+    }
+
     return (
         <>
             <div className="container">
@@ -158,7 +198,7 @@ export default function Book() {
                             <th>ชื่อ</th>
                             <th style={{ textAlign: 'right' }}>ราคา</th>
                             <th>รายละเอียด</th>
-                            <th className="w-[120px]">action</th>
+                            <th className="w-[200px]">action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -177,6 +217,9 @@ export default function Book() {
                                 <td>{book.description}</td>
                                 <td>
                                     <div className="flex gap-1 items-center">
+                                        <button className="btn-edit" onClick={() => openModalImportToStock(book)}>
+                                            <i className="fa fa-plus"></i>
+                                        </button>
                                         <button className="btn-edit"
                                             onClick={() => handleEdit(book)}
                                         >
@@ -228,6 +271,29 @@ export default function Book() {
 
                     <div className="mt-5">
                         <button className="modal-btn-submit modal-btn" onClick={handleSave}>
+                            <i className="fa fa-check mr-2"></i>
+                            Save
+                        </button>
+                    </div>
+                </Modal>
+                : null
+            }
+
+            {isShowModalImportToStock ?
+                <Modal onClose={closeModalImportToStock} title="รับสินค้าเข้าสต๊อค">
+                    <div>
+                        <label>หนังสือที่จะรับสินค้าเข้าสต๊อค</label>
+                        <input value={bookForImportToStock?.name} disabled />
+                    </div>
+
+                    <div>
+                        <label>จำนวนหนังสือ</label>
+                        <input type="number" value={qtyForImportToStock}
+                            onChange={(e) => setQtyForImportToStock(parseInt(e.target.value ?? '0'))} />
+                    </div>
+
+                    <div className="mt-5">
+                        <button className="modal-btn-submit modal-btn" onClick={handleImportToStock}>
                             <i className="fa fa-check mr-2"></i>
                             Save
                         </button>
