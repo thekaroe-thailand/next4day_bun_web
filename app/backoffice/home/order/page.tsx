@@ -239,7 +239,7 @@ export default function Order() {
                     <div className="mb-3">
                         <label>เอกสารการโอนเงิน</label>
                         <Image alt="" src={Config.apiUrl + '/public/upload/slip/' + order?.slipImage}
-                            className="w-[350px] rounded-xl"
+                            className="w-[350px] rounded-xl" width={350} height={350}
                         />
                     </div>
 
